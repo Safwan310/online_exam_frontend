@@ -1,25 +1,45 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import { useNavigate } from 'react-router-dom';
+import SubjectComponent from '../components/SubjectComponent';
 const HomeScreen = () => {
     const navigate = useNavigate();
+    const subjects = [
+        {
+            subjectName:"Zoology",
+            subjectImageUrl:"https://wallpapercave.com/wp/wp1812288.jpg"
+        },
+        {
+            subjectName:"Physics",
+            subjectImageUrl:"https://www.environmentalscience.org/wp-content/uploads/2018/08/physics-640x416.jpg"
+        },
+        {
+            subjectName:"Chemistry",
+            subjectImageUrl:"https://coolwallpapers.me/picsup/5434772-physics-and-chemistry-wallpapers.jpg"
+        },
+        {
+            subjectName:"Zoology",
+            subjectImageUrl:"https://wallpapercave.com/wp/wp1812288.jpg"
+        },
+        {
+            subjectName:"Physics",
+            subjectImageUrl:"https://www.environmentalscience.org/wp-content/uploads/2018/08/physics-640x416.jpg"
+        },
+        {
+            subjectName:"Chemistry",
+            subjectImageUrl:"https://coolwallpapers.me/picsup/5434772-physics-and-chemistry-wallpapers.jpg"
+        }
+    ]
+    let subjectComps = subjects.map((subject)=>(
+        <SubjectComponent 
+        name={subject.subjectName}
+        image={subject.subjectImageUrl}/>
+    ))
     return (
-        <div className='h-screen bg-white'>
+        <div className='h-screen bg-white overflow-y-scroll'>
             <NavBar/>
-            <p className='text-center'>
-                This is the Homepage
-            </p>
-            <div className='flex justify-center space-x-5'>
-                <button onClick={()=>navigate("/register")} className='p-5 bg-primary rounded-2xl'>Go to Registration page</button>
-                <button onClick={()=>navigate("/login")} className='p-5 bg-primary rounded-2xl'>Go to Login page</button>
-            </div>
-            <p className="text-center">Refer the colors</p>
-            <div className="p-10 flex flex-col space-y-5">
-                <p className='bg-primary p-5 rounded-2xl'>bg-primary</p>
-                <p className='bg-secondary p-5 rounded-2xl'>bg-secondary</p>
-                <p className='bg-tertiary p-5 rounded-2xl'>bg-tertiary</p>
-                <p className='bg-warning p-5 rounded-2xl'>bg-warning</p>
-                <p className='bg-danger p-5 rounded-2xl'>bg-danger</p>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10'>
+                {subjectComps}
             </div>
         </div>
     )
