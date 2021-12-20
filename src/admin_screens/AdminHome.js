@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { bearerTokenState } from '../atoms/bearerTokenState'
 
@@ -11,12 +12,17 @@ const AdminHome = () => {
     const [subjects, setSubjects] = useState([])
     const [loading, setLoading] = useState(true)
     const token = useRecoilValue(bearerTokenState);
+    sessionStorage.setItem("userToken",token);
+    let navigate = useNavigate();
+    const subjectAdder = ()=>{
+        navigate("/admin/addSubject");
+    }
+
     let config = {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
         }
     }
-    
     useEffect(() => {
         axios.get("https://exampal.herokuapp.com/admin/getSubjects",config)
         .then((res)=>{
@@ -30,7 +36,7 @@ const AdminHome = () => {
         <AdminSubjectComponent name={subject.subjectName} image={subject.subjectImageUrl}/>
     ))
     return (
-        <div className='h-screen'>
+        <div className='h-full lg:h-screen bg-warning'>
             <NavBar/>
             <div>
                 {
@@ -40,12 +46,21 @@ const AdminHome = () => {
                     </div>
                 ):
                 ( 
+                    
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10'>
                         {subjectComps}
                     </div>
+                    
                 )
                 }
             </div>
+            <div className='flex justify-end p-5'>
+                <button
+                className='bg-tertiary p-5 rounded-2xl shadow-xl'
+                onClick={subjectAdder}
+                >+ Add Subject
+                </button>
+            </div>  
         </div>
     )
 }

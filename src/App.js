@@ -9,6 +9,7 @@ import IndividualTest from "./student_screens/IndividualTest";
 import { RecoilRoot } from "recoil"
 import AdminLogin from "./admin_screens/AdminLogin";
 import AdminHome from "./admin_screens/AdminHome";
+import SubjectAddingPage from "./admin_screens/SubjectAddingPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin/>}/>
             <Route path="/users" element={<HomeScreen/>}/>
             <Route path="/admin" element={<AdminHome/>}/>
+            <Route path="/admin/addSubject" element={<SubjectAddingPage/>}/>
             <Route path="/:usertype/:subject" element={<TestScreen/>}/>
             <Route path="/users/:subject/:test" element={<IndividualTest/>}/>
             <Route path="/users/profile" element={<Profile/>}/>
