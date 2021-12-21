@@ -4,7 +4,7 @@ function ProfileDetails({ src, Name, Email, RegistrationNumber }) {
     return (
         <div className=' bg-white flex space-x-40 center space-y-20'>
             <div className='w-1/3 flex justify-left gap-20 p-10 place-items-center'>
-                <img className='rounded-full object-cover h-80 w-80 ' src={src} />
+                <img className='rounded-full object-cover h-80 w-80 ' src={src} alt=""/>
             </div>
 
             <div className='w-1/3 justify-center space-y-4 pr-10'>

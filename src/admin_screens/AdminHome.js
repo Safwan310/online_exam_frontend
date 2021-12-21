@@ -12,26 +12,28 @@ const AdminHome = () => {
     const [subjects, setSubjects] = useState([])
     const [loading, setLoading] = useState(true)
     const token = useRecoilValue(bearerTokenState);
-    sessionStorage.setItem("userToken",token);
+    if(token){
+        sessionStorage.setItem("userToken",token);
+    }
+    
     let navigate = useNavigate();
     const subjectAdder = ()=>{
         navigate("/admin/addSubject");
     }
 
-    let config = {
-        headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
-        }
-    }
     useEffect(() => {
-        axios.get("https://exampal.herokuapp.com/admin/getSubjects",config)
+        axios.get("https://exampal.herokuapp.com/admin/getSubjects", {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
+            }
+        })
         .then((res)=>{
             setLoading(false)
             setSubjects(res.data)
             console.log(subjects)
         })
         .catch((err)=>alert(`Error at fetching subs at admin side: ${err}`))
-    }, [])
+    }, [subjects])
     let subjectComps = subjects.map((subject)=>(
         <AdminSubjectComponent name={subject.subjectName} image={subject.subjectImageUrl}/>
     ))
@@ -41,7 +43,7 @@ const AdminHome = () => {
             <div>
                 {
                 loading ? (
-                    <div className="flex items-center justify-center ">
+                    <div className="flex items-center justify-center h-screen">
                         <div className="w-40 h-40 border-t-4 border-b-4 border-green-900 rounded-full animate-spin"></div>
                     </div>
                 ):

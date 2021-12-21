@@ -1,46 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
-import { useNavigate } from 'react-router-dom';
 import SubjectComponent from '../components/SubjectComponent';
+import { useRecoilValue } from 'recoil';
+import { bearerTokenState } from '../atoms/bearerTokenState';
+import axios from 'axios';
+import Loader from '../components/Loader';
 const HomeScreen = () => {
-    const navigate = useNavigate();
-    const subjects = [
-        {
-            subjectName:"Zoology",
-            subjectImageUrl:"https://wallpapercave.com/wp/wp1812288.jpg"
-        },
-        {
-            subjectName:"Physics",
-            subjectImageUrl:"https://www.environmentalscience.org/wp-content/uploads/2018/08/physics-640x416.jpg"
-        },
-        {
-            subjectName:"Chemistry",
-            subjectImageUrl:"https://coolwallpapers.me/picsup/5434772-physics-and-chemistry-wallpapers.jpg"
-        },
-        {
-            subjectName:"Zoology",
-            subjectImageUrl:"https://wallpapercave.com/wp/wp1812288.jpg"
-        },
-        {
-            subjectName:"Physics",
-            subjectImageUrl:"https://www.environmentalscience.org/wp-content/uploads/2018/08/physics-640x416.jpg"
-        },
-        {
-            subjectName:"Chemistry",
-            subjectImageUrl:"https://coolwallpapers.me/picsup/5434772-physics-and-chemistry-wallpapers.jpg"
-        }
-    ]
+    const [subjects, setSubjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    let token = useRecoilValue(bearerTokenState);
+    if(token){
+        sessionStorage.setItem("userToken",token);
+    }
+
+    useEffect(() => {
+        axios.get("https://exampal.herokuapp.com/users/subjects",{
+            headers:{
+                Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
+            }
+        })
+        .then((res)=>{
+            setSubjects(res.data)
+            setLoading(false)
+        })
+        .catch((err)=>alert(`Error at fetching subs at users side: ${err}`))
+    }, [])
+
     let subjectComps = subjects.map((subject)=>(
         <SubjectComponent 
         name={subject.subjectName}
         image={subject.subjectImageUrl}/>
     ))
     return (
-        <div className='h-screen bg-white overflow-y-scroll'>
+        <div className='h-screen bg-warning overflow-y-scroll'>
             <NavBar/>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10'>
-                {subjectComps}
-            </div>
+            {loading ? (
+                 <Loader/>
+            ):
+            (
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10'>
+                    {subjectComps}
+                </div>
+            )
+            } 
         </div>
     )
 }

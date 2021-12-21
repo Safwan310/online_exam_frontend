@@ -10,7 +10,7 @@ const AdminLogin = () => {
     const [tokenState, setTokenState] = useRecoilState(bearerTokenState);
     const navigate = useNavigate();
     const loginHandler = () =>{
-        axios.post("http://localhost:5000/users/login",
+        axios.post("https://exampal.herokuapp.com/users/login",
         {
                 "email":email,
                 "password":password,
@@ -19,6 +19,7 @@ const AdminLogin = () => {
         )
         .then((res)=>{
             setTokenState(res.data.token);
+            console.log(tokenState);
             navigate("/admin")
         })
         .catch((err)=>alert(`Error at login: ${err}`));

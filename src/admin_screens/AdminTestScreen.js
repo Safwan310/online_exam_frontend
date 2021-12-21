@@ -1,16 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import TestComponents from '../components/TestComponents'
 
-const TestScreen = () => {
+const AdminTestScreen = () => {
     
     const { subject } = useParams();
     const [tests, setTests] = useState([]);
     const [loading, setLoading] = useState(true);
+    let navigate = useNavigate();
     useEffect(() => {
-        axios.post("https://exampal.herokuapp.com/users/tests",{
+        axios.post("https://exampal.herokuapp.com/admin/getTests",{
             subject:subject
         },{
             headers:{
@@ -21,7 +22,7 @@ const TestScreen = () => {
             setTests(res.data);
             setLoading(false);
         })
-        .catch((err)=>alert(`Error at fetching tests on users : ${err}`))
+        .catch((err)=>alert(`Error at fetching tests on admin : ${err}`))
     }, [subject])
 
     
@@ -42,6 +43,15 @@ const TestScreen = () => {
                     <div className='flex flex-col space-y-5 p-5 h-3/4'>
                         {testComps}
                     </div>
+                    <div
+                    className='flex justify-end p-5'
+                    >
+                        <button 
+                        onClick={()=>{navigate(`/admin/${subject}/addTest`)}}
+                        className='bg-tertiary p-5 rounded-2xl shadow-lg'>
+                            + Create Tests
+                        </button>
+                    </div>
                 </>
             )
             }   
@@ -49,4 +59,4 @@ const TestScreen = () => {
     )
 }
 
-export default TestScreen
+export default AdminTestScreen
