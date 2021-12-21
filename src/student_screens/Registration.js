@@ -115,7 +115,7 @@ const Registration = () => {
                             Sign Up</button>
                     </div>
                     <div className='flex justify-end'>
-                        <Link to="/users/login">
+                        <Link to="/">
                             Already a member? Login
                         </Link>
                     </div>
