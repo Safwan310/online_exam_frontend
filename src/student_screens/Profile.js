@@ -24,7 +24,7 @@ const Profile = () => {
             
         })
         .catch((err)=>alert(`Error at profile fetching: ${err}`));
-    }, [])
+    }, [userValue])
     console.log(user);
     return (
         <div className='h-screen bg-warning'>
