@@ -7,7 +7,6 @@ import Login from "./student_screens/Login";
 import TestScreen from "./student_screens/TestScreen";
 import IndividualTest from "./student_screens/IndividualTest";
 import { RecoilRoot } from "recoil"
-import AdminLogin from "./admin_screens/AdminLogin";
 import AdminHome from "./admin_screens/AdminHome";
 import SubjectAddingPage from "./admin_screens/SubjectAddingPage";
 import TestAddingPage from "./admin_screens/TestAddingPage";
@@ -21,7 +20,6 @@ function App() {
           <Routes>
             <Route path="/users/register" element={<Registration/>}/>
             <Route path="/" element={<Login/>}/>
-            <Route path="/admin/login" element={<AdminLogin/>}/>
             <Route path="/users" element={<HomeScreen/>}/>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/addSubject" element={<SubjectAddingPage/>}/>

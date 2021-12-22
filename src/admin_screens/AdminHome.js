@@ -49,14 +49,14 @@ const AdminHome = () => {
                 ):
                 ( 
                     
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-10 h-full bg-warning'>
                         {subjectComps}
                     </div>
                     
                 )
                 }
             </div>
-            <div className='flex justify-end p-5'>
+            <div className='flex justify-end p-5 bg-warning'>
                 <button
                 className='bg-tertiary p-5 rounded-2xl shadow-xl'
                 onClick={subjectAdder}

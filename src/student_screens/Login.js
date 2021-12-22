@@ -13,13 +13,17 @@ const Login = () => {
         {
                 "email":email,
                 "password":password,
-                "isAdmin":false
         }
         )
         .then((res)=>{
             setTokenState(res.data.token);
             console.log(tokenState)
-            navigate("/users")
+            if(res.data.isAdmin){
+                navigate("/admin")
+            }
+            else{
+                navigate("/users")
+            }
         })
         .catch((err)=>alert(`Error at login: ${err}`));
         console.log([email,password])
@@ -38,14 +42,14 @@ const Login = () => {
                 <input 
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
-                type="text" className='rounded-2xl p-5'/>
+                type="password" className='rounded-2xl p-5'/>
                 <button 
                 className='bg-secondary p-5 rounded-2xl'
                 onClick={loginHandler}>
                     Login
                 </button>
                 <div className='flex justify-between'>
-                <Link to="/admin/login">New here? Register</Link>
+                <Link to="/admin/login">Go to Admin login</Link>
                     <Link to="/users/register">New here? Register</Link>
                 </div>
             </div>
