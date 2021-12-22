@@ -48,7 +48,7 @@ const Registration = () => {
                 "isAdmin":false
             })
             .then(()=>{
-                navigate("/login");
+                navigate("/");
             })
             .catch((err)=>{
                 alert(`Error at registration: ${err}`);

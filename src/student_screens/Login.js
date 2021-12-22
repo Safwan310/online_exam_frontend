@@ -17,6 +17,7 @@ const Login = () => {
         )
         .then((res)=>{
             setTokenState(res.data.token);
+            sessionStorage.setItem("userId",res.data.id);
             console.log(tokenState)
             if(res.data.isAdmin){
                 navigate("/admin")

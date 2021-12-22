@@ -1,43 +1,57 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Loader from '../components/Loader'
 import NavBar from '../components/NavBar'
-import TestResult from './TestResult'
+import StudentMarkComponent from '../components/StudentMarkComponent'
 const MarkScreen = () => {
+    const [marks, setMarks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        axios.post("https://exampal.herokuapp.com/users/marks",{
+            id:sessionStorage.getItem("userId")
+        },{
+            headers:{
+                Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
+            }
+        })
+        .then((res)=>{
+            setMarks(res.data);
+            setLoading(false);
+        })
+        .catch((err)=>alert(`Error at fetching marks on users side: ${err}`))
+    }, [])
+    console.log(marks);
+    let markComps = marks.map((mark)=>(
+        <StudentMarkComponent 
+        subjectName={mark.subjectName} 
+        marks={mark.marks}
+        testName={mark.testName}
+        />
+    ))
     return (
-        <div className=''>
+        <div className='h-screen'>
             <NavBar />
-            <div className='bg-white text-center pt-4 pb-4'>
-                <div className='text-2xl'>
-                    Test Scores
-                </div>
-                <div className='flex text-2xl text-center pl-4 '>
-                    <label class="pl-4 text-center w-1/4 block text-gray-700 text-sm font-bold" for="username">
-                        Test No
-                    </label>
-                    <label class="pr-7 text-center w-1/4 block text-gray-700 text-sm font-bold" for="username">
-                        Subject
-                    </label>
-                    <label class="pr-12 text-center w-1/4 block text-gray-700 text-sm font-bold" for="username">
-                        Date
-                    </label>
-                    <label class="pr-16 text-center w-1/4 block text-gray-700 text-sm font-bold" for="username">
-                        Marks
-                    </label>
-                </div>
-                <div className=''>
-                    <TestResult
-                        testNo="1"
-                        subject="Math"
-                        date="19/12/2021"
-                        totalMarks="99"
-                    />
-                    <TestResult
-                        testNo="2"
-                        subject="DSA"
-                        date="1/12/2021"
-                        totalMarks="100"
-                    />
-                </div>
-            </div>
+            {loading ? 
+            (
+                <Loader/>
+            )
+            :
+            (
+                    <div className='bg-warning text-center p-5'>
+                        <div className='text-2xl'>
+                            Test Scores
+                        </div>
+                        <div className='flex text-2xl justify-around p-5'>
+                            <p>Subject Name</p>
+                            <p>Test Name</p>
+                            <p>Marks</p>
+                        </div>
+                        <div className='flex flex-col space-y-5 bg-primary p-5 rounded-2xl'>
+                            {markComps}
+                        </div>
+                    </div>
+            )}
+            
         </div>
     )
 }

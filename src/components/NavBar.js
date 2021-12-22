@@ -38,8 +38,7 @@ const NavBar = () => {
     
     <div className={`${mobileState} md:hidden `}>
       <ul className="font-pixelated text-2xl">
-      {location === "admin" ? (<li><p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link to="/admin/issues">Issues</Link></p></li>):(<></>)}
-        <li className="active"><p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 text-center p-1"><Link to={`/${location}/marks`}>Previous Marks</Link></p></li>
+      {location === "admin" ? (<li><p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 text-center p-1"><Link to="/admin/issues">Issues</Link></p></li>):(<li className="active"><p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 text-center p-1"><Link to={`/${location}/marks`}>Previous Marks</Link></p></li>)}
         <li><p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 text-center p-1"><Link to={`/${location}/profile`}>Profile</Link></p></li>
       </ul>
     </div>
@@ -50,8 +49,7 @@ const NavBar = () => {
               
           </div>
           <div className="hidden md:flex items-center justify-center space-x-10 font-pixelated text-2xl lg:text-4xl md:text-3xl p-5 sticky top-0">
-              {location === "admin" ? (<p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link to="/admin/issues">Issues</Link></p>):(<></>)}
-              <p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link to={`/${location}/marks`}>Previous Marks</Link></p>
+              {location === "admin" ? (<p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link to="/admin/issues">Issues</Link></p>):(<p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 text-center p-1"><Link to={`/${location}/marks`}>Previous Marks</Link></p>)}
               <p className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link to={`/${location}/profile`}>Profile</Link></p>
           </div>
         </div>
