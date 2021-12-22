@@ -49,8 +49,7 @@ const Login = () => {
                 onClick={loginHandler}>
                     Login
                 </button>
-                <div className='flex justify-between'>
-                <Link to="/admin/login">Go to Admin login</Link>
+                <div className='flex justify-end'>
                     <Link to="/users/register">New here? Register</Link>
                 </div>
             </div>
