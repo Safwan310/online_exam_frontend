@@ -40,20 +40,17 @@ const TestAddingPage = () => {
 
     function onPost(e) {
         e.preventDefault();
-        let error = false;
+        // let error = false;
         const errorObj = { ...errorsObj };
-        if (questionTitle == "") {
+        if (questionTitle === "") {
             errorObj.questionTitle = 'Please Add the question';
             console.log('Add question');
-            error = true;
         }
         if (questionOptions.length < 8) {
             errorObj.questionOptions = 'Please Add 4 options with commas in between';
-            error = true;
         }
-        if (correctOption == "") {
+        if (correctOption === "") {
             errorObj.correctOption = 'Please Add the correct answer';
-            error = true;
         }
         setErrors(errorObj);
     }
@@ -61,16 +58,13 @@ const TestAddingPage = () => {
     function onAddTest(e) {
         //const qCountRegex = "[0-9]*"
         e.preventDefault();
-        let error = false;
         const errorObj = { ...errorsObj };
-        if (testName == "") {
-            errorObj.testName = 'Please Add the test name';
+        if (testName === "") {
+            errorObj.testName = 'Please Add the Test Name';
             console.log('Add subject');
-            error = true;
         }
-        if (qCount == "") {
+        if (qCount === "") {
             errorObj.qCount = 'Please Add the number of questions';
-            error = true;
         }
         setErrors(errorObj);
     }
@@ -150,6 +144,7 @@ const TestAddingPage = () => {
 
                         {qCount === 0 ? (
                             <button
+                                type="submit"
                                 onClick={testAdder}
                                 className='bg-tertiary rounded-xl p-3 text-primary'>
                                 Post Test
