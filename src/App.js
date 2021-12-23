@@ -12,6 +12,7 @@ import SubjectAddingPage from "./admin_screens/SubjectAddingPage";
 import TestAddingPage from "./admin_screens/TestAddingPage";
 import AdminTestScreen from "./admin_screens/AdminTestScreen";
 import AdminMarkScreen from "./admin_screens/AdminMarkScreen";
+import IssuePage from "./admin_screens/IssuePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/users" element={<HomeScreen/>}/>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/addSubject" element={<SubjectAddingPage/>}/>
+            <Route path="/admin/issues" element={<IssuePage/>}/>
             <Route path="/:userType/profile" element={<Profile/>}/>
             <Route path="/users/:subject" element={<TestScreen/>}/>
             <Route path="/admin/:subject" element={<AdminTestScreen/>}/>
