@@ -31,16 +31,13 @@ const SubjectAddingPage = () => {
     }
     function onAddSubject(e) {
         e.preventDefault();
-        let error = false;
         const errorObj = { ...errorsObj };
-        if (subjectName == "") {
+        if (subjectName === "") {
             errorObj.subjectName = 'Please Add the subject';
             console.log('Add subject');
-            error = true;
         }
-        if (subjectImage.length == 0) {
+        if (subjectImage.length === 0) {
             errorObj.subjectImage = 'Please Add the image url';
-            error = true;
         }
         setErrors(errorObj);
     }
@@ -91,5 +88,3 @@ const SubjectAddingPage = () => {
         </div>
     )
 }
-
-export default SubjectAddingPage
