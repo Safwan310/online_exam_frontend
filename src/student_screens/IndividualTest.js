@@ -11,6 +11,9 @@ const IndividualTest = () => {
     const { subject, test } = useParams();
     const [testInfo, setTestInfo] = useState({});
     const [loading, setLoading] = useState(true);
+    const [issueState, setIssueState] = useState("hidden");
+    const [questionState, setQuestionState] = useState("block");
+    const [issue,setIssue] = useState("");
     let navigate = useNavigate();
 
     const testSubmitter = () =>{
@@ -55,6 +58,36 @@ const IndividualTest = () => {
         })
         .catch((err)=>alert(`Error at fetching individual test: ${err}`))
     }, [subject,test])
+
+
+    const issueHandler = () =>{
+            setIssueState("block");
+            setQuestionState("hidden");
+    }
+
+
+    const issueSubmitHandler = () =>{
+        setLoading(true);
+        axios.post("https://exampal.herokuapp.com/users/issue",{
+            testName:test,
+            subjectName:subject,
+            studentName:sessionStorage.getItem("userName"),
+            issue:issue
+        },{
+            headers:{
+                Authorization: `Bearer ${sessionStorage.getItem("userToken")}`
+            }
+        })
+        .then(()=>{
+            setLoading(false);
+            setQuestionState("block");
+            setIssueState("hidden");
+            setIssue("");
+        })
+        .catch((err)=>alert(`Error at issue submission on users side: ${err}`));
+    }
+
+
     let answers = [];
     localStorage.setItem("answerOptions",JSON.stringify(answers));
     let questionComps = testInfo.testQuestions?.map((question,index)=>(
@@ -83,10 +116,34 @@ const IndividualTest = () => {
                             Duration: 30 mins
                         </h1>
                         </div>
-                        <div className="flex flex-col space-y-5 p-5">
+                        <div
+                        className='flex justify-end p-5'
+                        >
+                            <button 
+                            className={`bg-danger p-3 rounded-2xl text-white ${questionState}`}
+                            onClick={issueHandler}>
+                                Report Issue</button>
+                        </div>
+                        <div className={`flex flex-col space-y-5 p-5  ${questionState}`}>
                             {questionComps}
                         </div>
-                        <div className="flex justify-center p-5">
+                        <div className={`${issueState} h-screen flex flex-col p-10 space-y-5`}>
+                            <h1 className='text-3xl'>
+                                What seems to be the trouble?
+                            </h1>
+                            <textarea
+                            value={issue} 
+                            onChange={(e)=>setIssue(e.target.value)}
+                            rows={7}
+                            className='rounded-2xl p-3'
+                            />
+                            <button 
+                            onClick={issueSubmitHandler}
+                            className='bg-tertiary p-3 rounded-2xl'>
+                                Submit Issue & Continue to test
+                            </button>
+                        </div>
+                        <div className={`${questionState} flex justify-center p-5`}>
                             <button 
                             onClick={testSubmitter}
                             className="bg-tertiary rounded-2xl p-3 text-primary">
