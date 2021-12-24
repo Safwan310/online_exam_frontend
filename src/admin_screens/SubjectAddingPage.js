@@ -88,3 +88,5 @@ const SubjectAddingPage = () => {
         </div>
     )
 }
+
+export default SubjectAddingPage
