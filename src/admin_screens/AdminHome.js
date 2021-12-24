@@ -30,10 +30,11 @@ const AdminHome = () => {
         .then((res)=>{
             setLoading(false)
             setSubjects(res.data)
-            console.log(subjects)
         })
-        .catch((err)=>alert(`Error at fetching subs at admin side: ${err}`))
-    }, [subjects])
+        .catch((err)=>{
+            alert(`Error at fetching subs at admin side: ${err}`)
+        })
+    },[])
     let subjectComps = subjects.map((subject)=>(
         <AdminSubjectComponent name={subject.subjectName} image={subject.subjectImageUrl}/>
     ))
