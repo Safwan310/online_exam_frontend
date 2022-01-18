@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 
 const Profile = () => {
     const { userType } = useParams();
+    const navigate = useNavigate();
     const userValue = userType.includes("admin")? "admin" : "users";
     const textValue = userValue === "admin" ? "Admin":"Student";
     const [user, setUser] = useState({});
@@ -26,6 +27,10 @@ const Profile = () => {
         .catch((err)=>alert(`Error at profile fetching: ${err}`));
     }, [userValue])
     console.log(user);
+    const logoutHandler = ()=>{
+        sessionStorage.clear();
+        navigate("/");
+    }
     return (
         <div className='h-screen bg-warning'>
             <NavBar />
@@ -52,7 +57,9 @@ const Profile = () => {
                         <div
                         className='flex justify-center'
                         >
-                            <button className='bg-tertiary rounded-2xl p-5'>
+                            <button 
+                            className='bg-tertiary rounded-2xl p-5'
+                            onClick={logoutHandler}>
                                     Log Out
                             </button>
                         </div>
